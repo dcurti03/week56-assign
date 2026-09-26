@@ -1,0 +1,57 @@
+# Run from inside the shared directory
+
+# Build everything
+make
+
+# Check created files
+ls
+file libvector.so
+
+# Check if test can locate the shared library
+ldd ./test
+
+# Run using local libvector.so
+LD_LIBRARY_PATH=. ./test
+
+# Check for memory leaks
+LD_LIBRARY_PATH=. valgrind --leak-check=full ./test
+
+
+# Test clean
+make clean
+ls
+
+# Rebuild
+make
+
+
+# Install library and header
+sudo make install
+
+# Update shared library cache
+sudo ldconfig
+
+# Check installed files
+ls -l /usr/local/include/vector.h
+ls -l /usr/local/lib/libvector.so
+
+# Confirm Linux can find libvector.so
+ldconfig -p | grep libvector
+ldd ./test
+
+# Run normally after installation
+./test
+
+# Check memory again
+valgrind --leak-check=full ./test
+
+
+# Uninstall
+sudo make uninstall
+
+# Update library cache after uninstall
+sudo ldconfig
+
+
+# Final cleanup
+make clean

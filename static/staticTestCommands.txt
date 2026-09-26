@@ -1,0 +1,38 @@
+# Run from inside the static directory
+
+# Build everything
+make
+
+# Check created files
+ls
+file libvector.a
+
+# Run test program
+./test
+
+# Check for memory leaks
+valgrind --leak-check=full ./test
+
+
+# Test clean
+make clean
+ls
+
+# Rebuild
+make
+
+
+# Install library and header
+sudo make install
+
+# Check installed files
+ls -l /usr/local/include/vector.h
+ls -l /usr/local/lib/libvector.a
+
+
+# Uninstall
+sudo make uninstall
+
+
+# Final cleanup
+make clean
